@@ -1,8 +1,10 @@
 import java.util.ArrayList;
 
 public class Trainee {
+    //commands store all the user input command
     ArrayList<String> commands = new ArrayList<String>();
 
+    //print all command
     public void printAllCommand(){
         System.out.println("These are the commands you issued:");
         for(String command: this.commands){
@@ -10,18 +12,9 @@ public class Trainee {
             System.out.print(", ");
         }
     }
-
-    public int caculateCommandCost(){
-        int count = 0;
-        for(String command: commands){
-            if(!(command.equals("Wrong command") || command.equals("quit"))){
-                count++;
-            }
-        }
-        return count;
-    }
-
-    public void  addCommand(String command){
+    //transfer user input abbrev to full command
+    public void  transferCommand(String command){
+        //if user want to advance step
         String step = "";
         if(isPositiveNumber(command)){
             step = command;
@@ -45,7 +38,8 @@ public class Trainee {
         }
     }
 
-    private boolean isPositiveNumber(String input) {
+    //if input is a positive number, transfer command to advance when the input is positive
+    public boolean isPositiveNumber(String input) {
         int step = -1;
         try
         {

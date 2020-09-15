@@ -7,20 +7,9 @@ public class Map {
 
     String pathName;
     ArrayList<ArrayList<Character>> map = new ArrayList<ArrayList<Character>>();
-    int X, Y;
-    Bulldozer bulldozer;
-    int fuelUsage =0;
-    int paintDamage = 0;
-    int paintCost = 0;
-    int protectdTree = 0;
-    int protectedTreeCost = 0;
 
     public Map(String pathName){
         this.pathName = pathName;
-    }
-
-    public void placeBulldozer(Bulldozer bulldozer){
-        this.bulldozer = bulldozer;
     }
 
     public void readMap() throws FileNotFoundException {
@@ -41,11 +30,6 @@ public class Map {
         }
     }
 
-    public void caculateMapSize(){
-        this.X = this.map.get(0).size();
-        this.Y = this.map.size();
-    }
-
     public void printMap(){
         for(int i = 0; i< this.map.size(); i++){
             for(int j = 0; j<this.map.get(i).size(); j++){
@@ -56,7 +40,7 @@ public class Map {
         }
     }
 
-
+    //get land o/r/T/t/C from index
     public char getLand(int x, int y){
         return this.map.get(y).get(x);
     }
@@ -65,37 +49,18 @@ public class Map {
         this.map.get(y).set(x, 'C');
     }
 
-
-    public boolean isPositionValid(int newX,int newY){
-        return newX >= 0 && newX < this.X && newY >= 0 && newY < this.Y;
-    }
-
-
-
-    public void caculatePaintDamage(char land){
-        if(land == 't'){
-            paintDamage++;
-            paintCost = paintDamage * 2;
-        }
-    }
-
-    public void caculateDestructionTree(char land){
-        if(land == 'T'){
-            protectdTree++;
-            protectedTreeCost = protectdTree * 10;
-        }
-    }
-
-    public boolean isProtectTree(int x, int y){
+    //return the position status valid/protected tree/out of border
+    public String getPositionStatus(int x, int y){
+        String status = "";
+        char land;
         try{
-            char land = map.get(y).get(x);
-            if(land == 'T'){
-                return true;
-            }
+             land = map.get(y).get(x);
         }catch(IndexOutOfBoundsException e){
-        System.out.println("Bulldozer is out of map!");
+            return status = "OUT_OF_BORDER";
         }
-
-        return false;
+        if(land == 'T'){
+            return  status = "PROTECTED_TREE";
+        }
+        return status = "VALID";
     }
 }
