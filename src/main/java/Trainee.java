@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Trainee {
     //commands store all the user input command
-    ArrayList<String> commands = new ArrayList<String>();
+    private ArrayList<String> commands = new ArrayList<String>();
 
     //print all command
     public void printAllCommand(){
@@ -50,5 +50,13 @@ public class Trainee {
             return false;
         }
         return step > 0;
+    }
+
+    public void setCommands(ArrayList<String> commands) {
+        this.commands = commands;
+    }
+
+    public ArrayList<String> getCommands(){
+        return commands;
     }
 }

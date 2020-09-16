@@ -28,7 +28,7 @@ public class Play {
                 "site, immediately to the West of the site, and facing East.");
     }
 
-    public static void playGame(Trainee trainee, Bulldozer bulldozer, Map map){
+    private static void playGame(Trainee trainee, Bulldozer bulldozer, Map map){
 
         Boolean playGame = true;
         while(playGame){

@@ -5,8 +5,8 @@ import java.util.Scanner;
 
 public class Map {
 
-    String pathName;
-    ArrayList<ArrayList<Character>> map = new ArrayList<ArrayList<Character>>();
+    private String pathName;
+    private ArrayList<ArrayList<Character>> map = new ArrayList<ArrayList<Character>>();
 
     public Map(String pathName){
         this.pathName = pathName;
@@ -42,7 +42,7 @@ public class Map {
 
     //get land o/r/T/t/C from index
     public char getLand(int x, int y){
-        return this.map.get(y).get(x);
+        return map.get(y).get(x);
     }
 
     public void clearMap(int x, int y){
@@ -54,7 +54,7 @@ public class Map {
         String status = "";
         char land;
         try{
-             land = map.get(y).get(x);
+             land = getLand(x,y);
         }catch(IndexOutOfBoundsException e){
             return status = "OUT_OF_BORDER";
         }
@@ -62,5 +62,9 @@ public class Map {
             return  status = "PROTECTED_TREE";
         }
         return status = "VALID";
+    }
+
+    public ArrayList<ArrayList<Character>> getMap(){
+        return map;
     }
 }

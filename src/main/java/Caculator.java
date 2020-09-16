@@ -1,18 +1,18 @@
 import java.util.ArrayList;
 
 public class Caculator {
-    Map map;
-    Trainee trainee;
-    Bulldozer bulldozer;
-    int commuCost = 0;
-    int uncleardQuantity = 0;
-    int uncleardCost = 0;
-    int fuelUsage = 0;
-    int protectedTree = 0;
-    int protectedTreeCost = 0;
-    int paintDamage = 0;
-    int paintDamageCost = 0;
-    int total = 0;
+    private Map map;
+    private Trainee trainee;
+    private Bulldozer bulldozer;
+    private int commuCost = 0;
+    private int uncleardQuantity = 0;
+    private int uncleardCost = 0;
+    private int fuelUsage = 0;
+    private int protectedTree = 0;
+    private int protectedTreeCost = 0;
+    private int paintDamage = 0;
+    private int paintDamageCost = 0;
+    private int total = 0;
 
     public Caculator(Map map, Trainee trainee, Bulldozer bulldozer){
         this.map = map;
@@ -22,7 +22,7 @@ public class Caculator {
 
     public void caculateCommandCost(){
         ArrayList<String> commands = new ArrayList<String>();
-        commands = trainee.commands;
+        commands = trainee.getCommands();
         for(String command: commands){
             if(!(command.equals("Wrong command") || command.equals("quit"))){
                 commuCost++;
@@ -31,9 +31,9 @@ public class Caculator {
     }
 
     public void caculateUnclearedCost(){
-        for(int i=0; i< map.map.size(); i++){
-            for(int j=0; j<map.map.get(i).size(); j++){
-               if(map.map.get(i).get(j) != 'C' && map.map.get(i).get(j) != 'T'){
+        for(int i=0; i< map.getMap().size(); i++){
+            for(int j=0; j<map.getMap().get(i).size(); j++){
+               if(map.getMap().get(i).get(j) != 'C' && map.getMap().get(i).get(j) != 'T'){
                    uncleardQuantity++;
                }
             }
@@ -42,7 +42,7 @@ public class Caculator {
     }
 
     public void caculateFuelUsage(){
-        ArrayList<Character> historyPath = bulldozer.historyPath;
+        ArrayList<Character> historyPath = bulldozer.getHistoryPath();
         for(char land : historyPath){
             switch(land){
                 case 'o':
@@ -66,12 +66,12 @@ public class Caculator {
     }
 
     public void caculateProtectedTree(){
-        protectedTree = bulldozer.protectedTree;
+        protectedTree = bulldozer.getProtectedTree();
         protectedTreeCost = protectedTree * 10;
     }
 
     public void caculatePaintDamage(){
-        paintDamage = bulldozer.paintDamage;
+        paintDamage = bulldozer.getPaintDamage();
         paintDamageCost = paintDamage * 2;
     }
 

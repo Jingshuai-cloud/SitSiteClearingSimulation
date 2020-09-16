@@ -2,11 +2,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Bulldozer {
-    private Map map;
-    int protectedTree;
-    int paintDamage;
-    ArrayList<Character> historyPath = new ArrayList();
-    HashMap<String,String> position = new HashMap<>();
+   private Map map;
+   private int protectedTree;
+   private int paintDamage;
+   private ArrayList<Character> historyPath = new ArrayList();
+   private HashMap<String,String> position = new HashMap<>();
 
     //initialize the bulldozer position
     public Bulldozer(){
@@ -22,7 +22,7 @@ public class Bulldozer {
     }
 
     public boolean advance(int step){
-        //get [0,-1] when facing east...then caculate the next coordinate
+        //get [1,0] when facing east...then caculate the next coordinate
         Integer[] nextPosition = getNextPosition();
         int newX = 0, newY = 0;
 
@@ -43,7 +43,7 @@ public class Bulldozer {
                     return false;
 
                 case "VALID":
-                   positionIsValid(newX, newY, i, step);
+                    nextStep(newX, newY, i, step);
                     System.out.println(this.position);
                     break;
 
@@ -65,20 +65,20 @@ public class Bulldozer {
         nextBlock.put("EAST", new Integer[]{1, 0});
 
         String facing = this.position.get("facing");
-        Integer[] nextPosition = nextBlock.get(facing);
-        return nextPosition;
+        Integer[] nextPositionIndex = nextBlock.get(facing);
+        return nextPositionIndex;
     }
 
     //when position is valid, change the position
-    public void positionIsValid(int newX, int newY, int i, int step){
+    public void nextStep(int newX, int newY, int i, int step){
         char land = map.getLand(newX, newY);
         if(land == 't' && i != step - 1){
             paintDamage ++;
         }
         historyPath.add(land);
-        this.position.replace("X", String.valueOf(newX));
-        this.position.replace("Y",String.valueOf(newY));
-        this.map.clearMap(newX,newY);
+        position.replace("X", String.valueOf(newX));
+        position.replace("Y",String.valueOf(newY));
+        map.clearMap(newX,newY);
     }
 
     public void turn (String command){
@@ -99,6 +99,27 @@ public class Bulldozer {
         this.position.replace("facing", newFacing);
         System.out.println(this.position);
     }
+
+    public Map getMap(){
+        return map;
+    }
+
+    public int getProtectedTree(){
+        return protectedTree;
+    }
+
+    public int getPaintDamage(){
+        return paintDamage;
+    }
+
+    public ArrayList<Character> getHistoryPath(){
+        return historyPath;
+    }
+
+    public HashMap<String,String> getPosition(){
+        return position;
+    }
+
 
 
 }
