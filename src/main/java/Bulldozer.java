@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Bulldozer {
-   private Map map;
+   private Site site;
    private int protectedTree;
    private int paintDamage;
    private ArrayList<Character> historyPath = new ArrayList();
@@ -17,10 +17,6 @@ public class Bulldozer {
         paintDamage = 0;
     }
 
-    public void setMap(Map map){
-        this.map = map;
-    }
-
     public boolean advance(int step){
         //get [1,0] when facing east...then caculate the next coordinate
         Integer[] nextPosition = getNextPosition();
@@ -30,11 +26,11 @@ public class Bulldozer {
             //recaculate every step of advance
             newX = Integer.parseInt(this.position.get("X")) + nextPosition[0];
             newY = Integer.parseInt(this.position.get("Y")) + nextPosition[1];
-            //get position status from map
-            String positionStatus = map.getPositionStatus(newX, newY);
+            //get position status from site
+            String positionStatus = site.getPositionStatus(newX, newY);
             switch(positionStatus){
                 case "OUT_OF_BORDER":
-                    System.out.println("Bulldozer is out of the map!");
+                    System.out.println("Bulldozer is out of the site!");
                     return false;
 
                 case "PROTECTED_TREE":
@@ -71,14 +67,14 @@ public class Bulldozer {
 
     //when position is valid, change the position
     public void nextStep(int newX, int newY, int i, int step){
-        char land = map.getLand(newX, newY);
+        char land = site.getLand(newX, newY);
         if(land == 't' && i != step - 1){
             paintDamage ++;
         }
         historyPath.add(land);
         position.replace("X", String.valueOf(newX));
         position.replace("Y",String.valueOf(newY));
-        map.clearMap(newX,newY);
+        site.clearSite(newX,newY);
     }
 
     public void turn (String command){
@@ -100,8 +96,24 @@ public class Bulldozer {
         System.out.println(this.position);
     }
 
-    public Map getMap(){
-        return map;
+    public void setSite(Site site){
+        this.site = site;
+    }
+
+    public void setHistoryPath(ArrayList<Character> historyPath) {
+        this.historyPath = historyPath;
+    }
+
+    public Site getSite(){
+        return site;
+    }
+
+    public void setProtectedTree(int protectedTree) {
+        this.protectedTree = protectedTree;
+    }
+
+    public void setPaintDamage(int paintDamage) {
+        this.paintDamage = paintDamage;
     }
 
     public int getProtectedTree(){

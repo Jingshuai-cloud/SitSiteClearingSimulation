@@ -1,54 +1,52 @@
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import static org.mockito.Mockito.when;
 
 
 public class TestBulldozer {
 
-
-    Bulldozer bulldozer = new Bulldozer();
-    Map mockMap = Mockito.mock(Map.class);
-
-    @BeforeEach
-    public void setUp(){
-        bulldozer.setMap(mockMap);
-    }
-
     @Test
-    public void testAnvanceValid(){
-        when(mockMap.getPositionStatus(0,0)).thenReturn("VALID");
+    public void testAnvanceValid() throws FileNotFoundException {
+        Bulldozer bulldozer = new Bulldozer();
+        Site testSite = new Site("src/TestSite.txt");
+        testSite.readSite();
+        bulldozer.setSite(testSite);
         Assertions.assertEquals(true, bulldozer.advance(1));
     }
 
     @Test
     public void testAnvanceProtestTree(){
-        when(mockMap.getPositionStatus(0,0)).thenReturn("VALID");
-        when(mockMap.getPositionStatus(1,0)).thenReturn("VALID");
-        when(mockMap.getPositionStatus(2,0)).thenReturn("PROTECTED_TREE");
+        Bulldozer bulldozer = new Bulldozer();
+        Site testSite = new Site("src/TestSite.txt");
+        bulldozer.setSite(testSite);
         Assertions.assertEquals(false, bulldozer.advance(3));
     }
 
     @Test
-    public void testAnvanceOutOfBorder(){
-        when(mockMap.getPositionStatus(0,0)).thenReturn("OUT_OF_BORDER");
-        Assertions.assertEquals(false, bulldozer.advance(1));
+    public void testAnvanceOutOfBorder() throws FileNotFoundException {
+        Bulldozer bulldozer = new Bulldozer();
+        Site testSite = new Site("src/TestSite.txt");
+        bulldozer.setSite(testSite);
+        testSite.readSite();
+        Assertions.assertEquals(false, bulldozer.advance(4));
     }
 
     @Test
-    public void testSetMapCorrectly(){
-        Bulldozer testBulldozer = new Bulldozer();
-        Map testMap = new Map("src/TestMap.js");
-        testBulldozer.setMap(testMap);
-        Assertions.assertEquals(testBulldozer.getMap(), testMap);
+    public void testSetSiteCorrectly(){
+        Bulldozer bulldozer = new Bulldozer();
+        Site testSite = new Site("src/TestSite.txt");
+        bulldozer.setSite(testSite);
+        Assertions.assertEquals(bulldozer.getSite(), testSite);
     }
 
     @Test
     public void getNextPositionCorrectly(){
+        Bulldozer bulldozer = new Bulldozer();
+        Site testSite = new Site("src/TestSite.txt");
+        bulldozer.setSite(testSite);
         Integer[] nextWest = new Integer[]{-1,0};
         Integer[] nextEast = new Integer[]{1,0};
         Integer[] nextSouth = new Integer[]{0,1};
@@ -64,21 +62,31 @@ public class TestBulldozer {
 
 
     @Test
-    public void goToNextStepCorrectly(){
-        when(mockMap.getLand(1,0)).thenReturn('t');
+    public void goToNextStepCorrectly() throws FileNotFoundException {
+        Bulldozer bulldozer = new Bulldozer();
+        Site testSite = new Site("src/TestSite.txt");
+        bulldozer.setSite(testSite);
+        testSite.readSite();
+        bulldozer.nextStep(0,0,0,3);
+
+        Assertions.assertEquals(0, bulldozer.getPaintDamage());
         bulldozer.nextStep(1,0,1,3);
         Assertions.assertEquals(1, bulldozer.getPaintDamage());
-        ArrayList<Character> testHistoryPath = new ArrayList();
-        testHistoryPath.add('t');
+
+        ArrayList<Character> testHistoryPath = new ArrayList<>();
+        testHistoryPath.add('o'); testHistoryPath.add('t');
         Assertions.assertEquals(testHistoryPath, bulldozer.getHistoryPath());
-        String x = "1";
-        String y = "0";
+
+        String x = "1", y = "0";
         Assertions.assertEquals(x, bulldozer.getPosition().get("X"));
         Assertions.assertEquals(y, bulldozer.getPosition().get("Y"));
     }
 
     @Test
     public void testTurnCorrectly(){
+        Bulldozer bulldozer = new Bulldozer();
+        Site mockSite = new Site("src/TestSite.txt");
+        bulldozer.setSite(mockSite);
         bulldozer.turn("L");
         Assertions.assertEquals("NORTH", bulldozer.getPosition().get("facing"));
         bulldozer.turn("L");
@@ -96,28 +104,43 @@ public class TestBulldozer {
     }
 
     @Test
-    public void testGetMapCorrectly(){
-        Assertions.assertEquals(mockMap,bulldozer.getMap());
+    public void testGetSiteCorrectly(){
+        Bulldozer bulldozer = new Bulldozer();
+        Site mockSite = new Site("src/TestSite.txt");
+        bulldozer.setSite(mockSite);
+        Assertions.assertEquals(mockSite,bulldozer.getSite());
     }
 
     @Test
     public void testGetProtectTreeCorrectly(){
+        Bulldozer bulldozer = new Bulldozer();
+        Site mockSite = new Site("src/TestSite.txt");
+        bulldozer.setSite(mockSite);
         Assertions.assertEquals(0, bulldozer.getProtectedTree());
     }
 
     @Test
     public void testGetPaintDamageCorrectly(){
+        Bulldozer bulldozer = new Bulldozer();
+        Site mockSite = new Site("src/TestSite.txt");
+        bulldozer.setSite(mockSite);
         Assertions.assertEquals(0, bulldozer.getPaintDamage());
     }
 
     @Test
     public void testGetHistoryPathCorrectly(){
+        Bulldozer bulldozer = new Bulldozer();
+        Site mockSite = new Site("src/TestSite.txt");
+        bulldozer.setSite(mockSite);
         ArrayList<String> testHistoryPath = new ArrayList<>();
         Assertions.assertEquals(testHistoryPath, bulldozer.getHistoryPath());
     }
 
     @Test
     public void testGetPositionCorrectly(){
+        Bulldozer bulldozer = new Bulldozer();
+        Site mockSite = new Site("src/TestSite.txt");
+        bulldozer.setSite(mockSite);
         HashMap<String,String> testPosition = new HashMap<>();
         testPosition.put("X", "-1");
         testPosition.put("Y", "0");

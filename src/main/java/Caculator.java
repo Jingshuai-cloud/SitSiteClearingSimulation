@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Caculator {
-    private Map map;
+    private Site site;
     private Trainee trainee;
     private Bulldozer bulldozer;
     private int commuCost = 0;
@@ -14,13 +14,13 @@ public class Caculator {
     private int paintDamageCost = 0;
     private int total = 0;
 
-    public Caculator(Map map, Trainee trainee, Bulldozer bulldozer){
-        this.map = map;
+    public Caculator(Site site, Trainee trainee, Bulldozer bulldozer){
+        this.site = site;
         this.trainee = trainee;
         this.bulldozer = bulldozer;
     }
 
-    public void caculateCommandCost(){
+    public int caculateCommandCost(){
         ArrayList<String> commands = new ArrayList<String>();
         commands = trainee.getCommands();
         for(String command: commands){
@@ -28,20 +28,25 @@ public class Caculator {
                 commuCost++;
             }
         }
+        return commuCost;
     }
 
-    public void caculateUnclearedCost(){
-        for(int i=0; i< map.getMap().size(); i++){
-            for(int j=0; j<map.getMap().get(i).size(); j++){
-               if(map.getMap().get(i).get(j) != 'C' && map.getMap().get(i).get(j) != 'T'){
+    public int caculateUnclearedQuantity(){
+        for(int i = 0; i< site.getSite().size(); i++){
+            for(int j = 0; j< site.getSite().get(i).size(); j++){
+               if(site.getSite().get(i).get(j) != 'C' && site.getSite().get(i).get(j) != 'T'){
                    uncleardQuantity++;
                }
             }
         }
-        uncleardCost = uncleardQuantity * 3;
+        return  uncleardQuantity;
     }
 
-    public void caculateFuelUsage(){
+    public int caculateUnclearCost(){
+        return uncleardCost = uncleardQuantity * 3;
+    }
+
+    public int caculateFuelUsage(){
         ArrayList<Character> historyPath = bulldozer.getHistoryPath();
         for(char land : historyPath){
             switch(land){
@@ -57,34 +62,46 @@ public class Caculator {
                 case 't':
                     fuelUsage = fuelUsage + 2;
                     break;
-                default:
-                    System.out.println("Wrong land type!");
             }
 
         }
-
+        return fuelUsage;
     }
 
-    public void caculateProtectedTree(){
+    public int caculateProtectedTree(){
         protectedTree = bulldozer.getProtectedTree();
+        return protectedTree;
+    }
+
+    public int caculateProtectedTreeCost(){
         protectedTreeCost = protectedTree * 10;
+        return protectedTreeCost;
     }
 
-    public void caculatePaintDamage(){
+    public int caculatePaintDamage(){
         paintDamage = bulldozer.getPaintDamage();
-        paintDamageCost = paintDamage * 2;
+        return paintDamage;
     }
 
-    public void caculateTotalCost(){
+    public int caculatePaintDamageCost(){
+        paintDamageCost = paintDamage * 2;
+        return paintDamageCost;
+    }
+
+    public int caculateTotalCost(){
         total = commuCost + fuelUsage + uncleardCost + protectedTreeCost + paintDamageCost;
+        return total;
     }
 
     public void doAllCaculations(){
         caculateCommandCost();
         caculatePaintDamage();
+        caculatePaintDamageCost();
         caculateProtectedTree();
+        caculateProtectedTreeCost();
         caculateFuelUsage();
-        caculateUnclearedCost();
+        caculateUnclearedQuantity();
+        caculateUnclearCost();
         caculateTotalCost();
     }
 
@@ -114,4 +131,6 @@ public class Caculator {
             System.out.format("\n%-30s%15s%15s", row);
         }
     }
+
+
 }
