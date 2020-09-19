@@ -1,5 +1,11 @@
+package Game;
+
 import java.io.FileNotFoundException;
-import java.util.Scanner;
+import Object.Trainee;
+import Object.Bulldozer;
+import Object.Caculator;
+import Object.Site;
+
 
 public class Play {
 

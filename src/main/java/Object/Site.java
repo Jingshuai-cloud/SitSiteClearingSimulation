@@ -1,3 +1,5 @@
+package Object;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -12,9 +14,10 @@ public class Site {
         this.pathName = pathName;
     }
 
-    public void readSite() throws FileNotFoundException {
+    public void readSite () throws FileNotFoundException {
         File siteFile = new File(pathName);
         Scanner scanner = new Scanner(siteFile);
+
         //Store the site in a ArrayLisit[ootooooooo,oooooooToo...]
         ArrayList<String> siteArray = new ArrayList<String>();
         while(scanner.hasNextLine()){

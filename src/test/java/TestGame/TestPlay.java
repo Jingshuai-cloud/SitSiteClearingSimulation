@@ -1,11 +1,9 @@
-import org.junit.jupiter.api.Assertions;
+package TestGame;
+
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.PrintStream;
-
+import Game.Play;
 
 
 public class TestPlay {

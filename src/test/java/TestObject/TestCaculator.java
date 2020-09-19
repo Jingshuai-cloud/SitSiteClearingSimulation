@@ -1,4 +1,5 @@
-import org.junit.Before;
+package TestObject;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,6 +9,10 @@ import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
+import Object.Bulldozer;
+import Object.Site;
+import Object.Trainee;
+import Object.Caculator;
 
 public class TestCaculator {
     private Site testSite = new Site("src/TestSite.txt");
@@ -108,7 +113,7 @@ public class TestCaculator {
     @Test
     public void testPrintTable(){
         Caculator caculator = new Caculator(testSite,testTrainee,testBulldozer);
-        caculator.printTable();
+        caculator.printCaculationResult();
         Assertions.assertEquals(
                 "Item                                 Quantity           Cost\n" +
                         "communication overhead                      0              0\n" +

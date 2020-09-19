@@ -1,3 +1,5 @@
+package Object;
+
 import java.util.ArrayList;
 
 public class Caculator {
@@ -31,10 +33,11 @@ public class Caculator {
         return commuCost;
     }
 
+    //caculate how many land not been cleared in the site
     public int caculateUnclearedQuantity(){
-        for(int i = 0; i< site.getSite().size(); i++){
-            for(int j = 0; j< site.getSite().get(i).size(); j++){
-               if(site.getSite().get(i).get(j) != 'C' && site.getSite().get(i).get(j) != 'T'){
+        for(int y = 0; y< site.getSite().size(); y++){
+            for(int x = 0; x< site.getSite().get(y).size(); x++){
+               if(site.getSite().get(y).get(x) != 'C' && site.getSite().get(y).get(x) != 'T'){
                    uncleardQuantity++;
                }
             }
@@ -105,7 +108,7 @@ public class Caculator {
         caculateTotalCost();
     }
 
-    public void printTable(){
+    public void printCaculationResult(){
         //transfer all the value from int to String
         String commu = String.valueOf(commuCost),
                 fuel = String.valueOf(fuelUsage),

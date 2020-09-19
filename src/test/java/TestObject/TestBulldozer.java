@@ -1,9 +1,14 @@
+package TestObject;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import Object.Bulldozer;
+import Object.Site;
 
 
 public class TestBulldozer {
@@ -51,13 +56,13 @@ public class TestBulldozer {
         Integer[] nextEast = new Integer[]{1,0};
         Integer[] nextSouth = new Integer[]{0,1};
         Integer[] nextNorth = new Integer[]{0,-1};
-        Assertions.assertArrayEquals(nextEast, bulldozer.getNextPosition());
+        Assertions.assertArrayEquals(nextEast, bulldozer.getNextPositionCaculateIndex());
         bulldozer.turn("R");
-        Assertions.assertArrayEquals(nextSouth, bulldozer.getNextPosition());
+        Assertions.assertArrayEquals(nextSouth, bulldozer.getNextPositionCaculateIndex());
         bulldozer.turn("R");
-        Assertions.assertArrayEquals(nextWest, bulldozer.getNextPosition());
+        Assertions.assertArrayEquals(nextWest, bulldozer.getNextPositionCaculateIndex());
         bulldozer.turn("R");
-        Assertions.assertArrayEquals(nextNorth, bulldozer.getNextPosition());
+        Assertions.assertArrayEquals(nextNorth, bulldozer.getNextPositionCaculateIndex());
     }
 
 
@@ -67,10 +72,10 @@ public class TestBulldozer {
         Site testSite = new Site("src/TestSite.txt");
         bulldozer.setSite(testSite);
         testSite.readSite();
-        bulldozer.nextStep(0,0,0,3);
+        bulldozer.moveToNextStep(0,0,0,3);
 
         Assertions.assertEquals(0, bulldozer.getPaintDamage());
-        bulldozer.nextStep(1,0,1,3);
+        bulldozer.moveToNextStep(1,0,1,3);
         Assertions.assertEquals(1, bulldozer.getPaintDamage());
 
         ArrayList<Character> testHistoryPath = new ArrayList<>();

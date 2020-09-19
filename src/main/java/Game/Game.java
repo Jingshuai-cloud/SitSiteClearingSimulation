@@ -1,4 +1,10 @@
+package Game;
+
 import java.util.Scanner;
+import Object.Trainee;
+import Object.Bulldozer;
+import Object.Caculator;
+import Object.Site;
 
 public class Game {
 
@@ -50,6 +56,6 @@ public class Game {
     public void exitGame(Trainee trainee, Caculator caculator){
         trainee.printAllCommand();
         caculator.doAllCaculations();
-        caculator.printTable();
+        caculator.printCaculationResult();
     }
 }

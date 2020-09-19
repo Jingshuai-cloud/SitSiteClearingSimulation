@@ -1,10 +1,15 @@
-import org.junit.Rule;
+package TestGame;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
-import java.util.ArrayList;
+import Game.Game;
+import Object.Bulldozer;
+import Object.Site;
+import Object.Trainee;
+import Object.Caculator;
 
 public class TestGame {
     private final PrintStream standardOut = System.out;

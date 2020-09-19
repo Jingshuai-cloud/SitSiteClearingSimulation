@@ -1,3 +1,5 @@
+package Object;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -19,13 +21,13 @@ public class Bulldozer {
 
     public boolean advance(int step){
         //get [1,0] when facing east...then caculate the next coordinate
-        Integer[] nextPosition = getNextPosition();
+        Integer[] caculateNextPosition = getNextPositionCaculateIndex();
         int newX = 0, newY = 0;
 
         for(int i =0; i< step; i++){
             //recaculate every step of advance
-            newX = Integer.parseInt(this.position.get("X")) + nextPosition[0];
-            newY = Integer.parseInt(this.position.get("Y")) + nextPosition[1];
+            newX = Integer.parseInt(this.position.get("X")) + caculateNextPosition[0];
+            newY = Integer.parseInt(this.position.get("Y")) + caculateNextPosition[1];
             //get position status from site
             String positionStatus = site.getPositionStatus(newX, newY);
             switch(positionStatus){
@@ -39,8 +41,8 @@ public class Bulldozer {
                     return false;
 
                 case "VALID":
-                    nextStep(newX, newY, i, step);
-                    System.out.println(this.position);
+                    moveToNextStep(newX, newY, i, step);
+                   // System.out.println(this.position);
                     break;
 
                 default:
@@ -48,12 +50,12 @@ public class Bulldozer {
             }
 
         }
-        System.out.println(historyPath);
         return true;
     }
 
+
     //define how to caculate next position according to current facing
-    public Integer[] getNextPosition(){
+    public Integer[] getNextPositionCaculateIndex(){
         HashMap<String, Integer[]> nextBlock = new HashMap<>();
         nextBlock.put("NORTH", new Integer[]{0, -1});
         nextBlock.put("SOUTH", new Integer[]{0, 1});
@@ -66,7 +68,7 @@ public class Bulldozer {
     }
 
     //when position is valid, change the position
-    public void nextStep(int newX, int newY, int i, int step){
+    public void moveToNextStep(int newX, int newY, int i, int step){
         char land = site.getLand(newX, newY);
         if(land == 't' && i != step - 1){
             paintDamage ++;
@@ -74,6 +76,7 @@ public class Bulldozer {
         historyPath.add(land);
         position.replace("X", String.valueOf(newX));
         position.replace("Y",String.valueOf(newY));
+        //clear the site to C
         site.clearSite(newX,newY);
     }
 
@@ -93,7 +96,6 @@ public class Bulldozer {
         String newFacing = nextFacing.get(facing)[direction];
 
         this.position.replace("facing", newFacing);
-        System.out.println(this.position);
     }
 
     public void setSite(Site site){

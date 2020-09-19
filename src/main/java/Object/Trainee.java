@@ -1,3 +1,5 @@
+package Object;
+
 import java.util.ArrayList;
 
 public class Trainee {
@@ -13,8 +15,8 @@ public class Trainee {
         }
     }
     //transfer user input abbrev to full command
-    public void  transferCommand(String command){
-        //if user want to advance step
+    public void transferCommand(String command){
+        //if user want to advance
         String step = "";
         if(isPositiveNumber(command)){
             step = command;
@@ -45,7 +47,7 @@ public class Trainee {
         {
             step = Integer.parseInt(input);
         }
-        catch(NumberFormatException ex)
+        catch(NumberFormatException e)
         {
             return false;
         }
