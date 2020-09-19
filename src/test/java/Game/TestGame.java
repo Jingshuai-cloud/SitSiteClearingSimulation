@@ -1,4 +1,4 @@
-package TestGame;
+package Game;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -44,6 +44,7 @@ public class TestGame {
         Assertions.assertEquals(
                 "(l)eft, (r)ight, positive number for advance, (q)uit\n" +
                         "exiting the game...\n" +
+                        "{X=-1, Y=0, facing=EAST}\n" +
                         "o t T \n" +
                         "o o T \n" +
                         "r r r",

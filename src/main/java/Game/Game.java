@@ -15,9 +15,8 @@ public class Game {
                 "site, immediately to the West of the site, and facing East.");
     }
 
-
+    //read and execute the command
     public void playGame(Trainee trainee, Bulldozer bulldozer, Site site){
-
         Boolean playGame = true;
         while(playGame){
             System.out.println("(l)eft, (r)ight, positive number for advance, (q)uit");
@@ -48,6 +47,7 @@ public class Game {
                 default:
                     System.out.println("Please enter the right command");
             }
+            System.out.println(bulldozer.getPosition());
             site.printSite();
         }
 

@@ -1,4 +1,4 @@
-package TestObject;
+package Object;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
